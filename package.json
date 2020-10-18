@@ -8,7 +8,8 @@
     "start": "concurrently \"node server.js\" \"cd client && npm start\"",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "watch": "concurrently \"nodemon server.js\" \"cd client && npm start\""
   },
   "repository": {
     "type": "git",
@@ -22,13 +23,18 @@
   "homepage": "https://github.com/MichaelOlshewski/PortfolioManagementSystem#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9",
     "nodemon": "^2.0.5",
-    "path": "^0.12.7"
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "path": "^0.12.7",
+    "validator": "^13.1.17"
   }
 }

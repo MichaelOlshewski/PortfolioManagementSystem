@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+//import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, /*Switch,*/ Link } from 'react-router-dom';
 import Portfolio from './pages/portfolio';
 import Dashboard from './pages/dashboard'
 
