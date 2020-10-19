@@ -1,27 +1,28 @@
 import React from 'react';
 //import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, /*Switch,*/ Link } from 'react-router-dom';
-import Portfolio from './pages/portfolio';
-import Dashboard from './pages/dashboard'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Landing from './components/Landing';
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
+
+import { Provider } from "react-redux";
+import store from './store'
 
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <button className="btn">Log In!</button>
+    <Provider store={store}>
       <Router>
-        <div>
-          <Route exact path="/">
-            <Portfolio />
-          </Route>
-          <Route exact path="/dashboard">
-            <Dashboard />
-          </Route>
+        <div className="App">
+          <Navbar/>
+          <Route exact path="/" component={Landing}/>
+          <Route exact path="/register" component={Register}/>
+          <Route exact path="/login" component={Login}/>
         </div>
-      <Link to="/dashboard" className="btn">Dashboard</Link>
       </Router>
-    </div>
+    </Provider>
   )
 }
 
