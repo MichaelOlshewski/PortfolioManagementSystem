@@ -18,11 +18,11 @@ app.use(express.urlencoded({ extended: true}))
 app.use(express.json())
 app.use(cors())
 
-//if (process.env.isProd === "production") {
+if (process.env.isProd === "production") {
     app.use(express.static('client/build'));
-//} else {
- //   app.use(express.static('/client/src'))
-//}
+} else {
+   app.use(express.static('/client/build'))
+}
 
 //Passport Middleware
 app.use(passport.initialize())
