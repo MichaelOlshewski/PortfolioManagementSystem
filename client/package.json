@@ -25,6 +25,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "https://portmansys.herokuapp.com/api/users",
   "eslintConfig": {
     "extends": "react-app"
   },

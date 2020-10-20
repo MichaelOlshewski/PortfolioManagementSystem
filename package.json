@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "if-env NODE_ENV=production && npm run build && npm run production || npm run build && npm run development",
+    "oldStart": "if-env isProd=production && npm run build && npm run production || npm run build && npm run development",
+    "start": "npm run build && node server.js",
     "production": "node server.js",
     "development": "concurrently \"nodemon server.js\" \"cd client && npm start\"",
     "install": "cd client && npm install",
