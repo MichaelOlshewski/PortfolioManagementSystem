@@ -17,10 +17,6 @@ const UserSchema = new mongoose.Schema({
         required: true,
         minlength: 8
     },
-    isDeleted: {
-        type: Boolean,
-        default: false
-    },
     isSetup: {
         type: Boolean,
         default: false
