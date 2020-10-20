@@ -16,11 +16,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.urlencoded({ extended: true}))
 app.use(express.json())
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static("client/build"))
-} else {
-    app.use(express.static("public"))
-}
+app.use(express.static("client/build"))
 
 //Passport Middleware
 app.use(passport.initialize())
@@ -33,6 +29,18 @@ app.use("/api/users", users)
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"))
+})
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build/index.html"))
+})
+
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build/index.html"))
+})
+
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, "client/build/index.html"))
 })
 
 mongoose.connect(db || process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true}).then(() => console.log("MongoDB sucessfully connected")).catch(err => console.log(err))
