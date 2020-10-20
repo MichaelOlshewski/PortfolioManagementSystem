@@ -46,7 +46,7 @@ export const setUserLoading = () => {
 }
 
 // Log User Out
-export const logoutUser = () => {
+export const logoutUser = () => dispatch => {
     // Remove Token from localStorage
     localStorage.removeItem("jwtToken");
 
@@ -54,5 +54,5 @@ export const logoutUser = () => {
     setAuthToken(false);
 
     // Set current user to empty object
-    setCurrentUser({});
+    dispatch(setCurrentUser({}));
 }
