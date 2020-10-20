@@ -12,7 +12,7 @@ const app = express();
 
 const db = require('./config/keys').mongoURI;
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({ extended: true}))
 app.use(express.json())
