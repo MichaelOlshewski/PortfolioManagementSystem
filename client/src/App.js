@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Landing from './components/Landing';
+import Portfolio from './pages/portfolio';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import { Provider } from "react-redux";
@@ -38,7 +37,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="App">
-          <Route exact path="/" component={Landing}/>
+          <Route exact path="/" component={Portfolio}/>
           <Route exact path="/register" component={Register}/>
           <Route exact path="/login" component={Login}/>
           <Switch>
