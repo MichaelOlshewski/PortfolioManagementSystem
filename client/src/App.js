@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Landing from './components/Landing';
+import Portfolio from './pages/portfolio';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import { Provider } from "react-redux";
@@ -10,8 +9,12 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from './actions/authActions';
 import PrivateRoute from './components/private-route/PrivateRoute';
+<<<<<<< HEAD
 import dash from "./pages/dashboard/dash";
 import './App.css';
+=======
+import Dashboard from "./pages/dashboard/";
+>>>>>>> 34b79d8149f0cbb4b2410bf313f221c6934a855f
 
 // Check localStorage for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -39,8 +42,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="App">
-          <Navbar/>
-          <Route exact path="/" component={Landing}/>
+          <Route exact path="/" component={Portfolio}/>
           <Route exact path="/register" component={Register}/>
           <Route exact path="/login" component={Login}/>
           <Switch>
