@@ -10,7 +10,7 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from './actions/authActions';
 import PrivateRoute from './components/private-route/PrivateRoute';
-import Dashboard from "./pages/dashboard/"
+import dash from "./pages/dashboard/dash";
 import './App.css';
 
 // Check localStorage for token to keep user logged in
@@ -44,7 +44,7 @@ function App() {
           <Route exact path="/register" component={Register}/>
           <Route exact path="/login" component={Login}/>
           <Switch>
-            <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            <PrivateRoute exact path="/dashboard" component={dash} />
           </Switch>
         </div>
       </Router>
