@@ -9,12 +9,8 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from './actions/authActions';
 import PrivateRoute from './components/private-route/PrivateRoute';
-<<<<<<< HEAD
 import dash from "./pages/dashboard/dash";
 import './App.css';
-=======
-import Dashboard from "./pages/dashboard/";
->>>>>>> 34b79d8149f0cbb4b2410bf313f221c6934a855f
 
 // Check localStorage for token to keep user logged in
 if (localStorage.jwtToken) {
