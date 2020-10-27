@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Portfolio from './pages/portfolio';
+import Portfolio from './pages/portfolio/Portfolio';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import { Provider } from "react-redux";
@@ -10,7 +10,6 @@ import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from './actions/authActions';
 import PrivateRoute from './components/private-route/PrivateRoute';
 import dash from "./pages/dashboard/dash";
-import './App.css';
 
 // Check localStorage for token to keep user logged in
 if (localStorage.jwtToken) {
