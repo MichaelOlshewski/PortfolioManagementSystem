@@ -21,7 +21,6 @@ import Orders from './Orders';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 function Copyright() {
   return (
