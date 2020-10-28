@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Portfolio from './pages/portfolio';
+import Portfolio from './pages/portfolio/Portfolio';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import { Provider } from "react-redux";
