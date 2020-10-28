@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Navbar from "../../components/Navbar";
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +33,7 @@ function FullWidthGrid() {
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
               {" "}
-              <a className="App 1" href="#">
+              <a className="App 1" href="/">
                 {" "}
                 App 1{" "}
               </a>{" "}
@@ -40,7 +41,7 @@ function FullWidthGrid() {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
-              <a className="App 1" href="#">
+              <a className="App 1" href="/">
                 {" "}
                 App 2{" "}
               </a>
@@ -48,7 +49,7 @@ function FullWidthGrid() {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
-              <a className="App 1" href="#">
+              <a className="App 1" href="/">
                 {" "}
                 App 3{" "}
               </a>
@@ -56,7 +57,7 @@ function FullWidthGrid() {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
-              <a className="App 1" href="#">
+              <a className="App 1" href="/">
                 {" "}
                 App 4{" "}
               </a>
@@ -64,7 +65,7 @@ function FullWidthGrid() {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
-              <a className="App 1" href="#">
+              <a className="App 1" href="/">
                 {" "}
                 App 5{" "}
               </a>
@@ -72,7 +73,7 @@ function FullWidthGrid() {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
-              <a className="App 1" href="#">
+              <a className="App 1" href="/">
                 {" "}
                 App 6{" "}
               </a>
@@ -82,6 +83,6 @@ function FullWidthGrid() {
       </div>
     </React.Fragment>
   );
-};
+}
 
-export default FullWidthGrid();
+export default FullWidthGrid;
