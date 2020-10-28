@@ -22,11 +22,7 @@ export const mainListItems = (
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-<<<<<<< HEAD
-      <ListItemText primary="Orders"></ListItemText>
-=======
       <ListItemText primary="View All Posts" />
->>>>>>> bbfddaa60dc8b531103f8af29a41c7e5f8ccbcb5
     </ListItem>
       </Link>
     <ListItem button>
