@@ -5,6 +5,7 @@ const cors = require('cors')
 const passport = require('passport')
 
 const users = require('./routes/api/users')
+const portdata = require('./routes/api/portdata')
 
 require("dotenv").config();
 
@@ -32,8 +33,21 @@ require('./config/passport')(passport);
 
 //Routes
 app.use("/api/users", users)
+app.use("/api/portdata", portdata)
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, "/index.html"))
+})
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, "/index.html"))
+})
+
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, "/index.html"))
+})
+
+app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"))
 })
 
