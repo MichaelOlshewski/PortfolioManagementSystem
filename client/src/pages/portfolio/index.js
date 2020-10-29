@@ -16,21 +16,25 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-// const getPortData = () => {
-//     axios.get("/api/portdata")
-//         .then((response) => {
-//             const data = response.data
-//             console.log("data recieved")
-//         })
-//         .catch(() => {
-//             alert("error recieving data")
-//         })
-// }
+const getPortData = () => {
+    axios.get("/api/portdata")
+        .then((response) => {
+            const data = response.data
+            console.log("data recieved")
+            console.log(data)
+        })
+        .catch(() => {
+            alert("error recieving data")
+        })
+}
 
-function FullWidthGrid() {
-    // useEffect(() => {
-    //     getPortData()
-    // });
+function FullWidthGrid(props) {
+
+    
+    useEffect(() => {
+        getPortData();
+    });
+
     const classes = useStyles();
 
     return (
