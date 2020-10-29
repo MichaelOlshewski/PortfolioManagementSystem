@@ -1,15 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Portfolio from './pages/portfolio';
-import Register from './components/auth/Register';
-import Login from './components/auth/Login';
 import { Provider } from "react-redux";
+import setAuthToken from "./utils/setAuthToken";
 import store from './store'
 import jwt_decode from "jwt-decode";
-import setAuthToken from "./utils/setAuthToken";
-import { setCurrentUser, logoutUser } from './actions/authActions';
 import PrivateRoute from './components/private-route/PrivateRoute';
-import dash from "./pages/dashboard/dash";
+import { setCurrentUser, logoutUser } from './actions/authActions';
+
+import Portfolio from './pages/portfolio/';
+import Dashboard from "./pages/dashboard/";
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
 
 // Check localStorage for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -41,7 +42,7 @@ function App() {
           <Route exact path="/register" component={Register}/>
           <Route exact path="/login" component={Login}/>
           <Switch>
-            <PrivateRoute exact path="/dashboard" component={dash} />
+            <PrivateRoute path="/dashboard" component={Dashboard} />
           </Switch>
         </div>
       </Router>

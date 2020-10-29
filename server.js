@@ -33,20 +33,8 @@ require('./config/passport')(passport);
 //Routes
 app.use("/api/users", users)
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"))
-})
-
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build/index.html"))
-})
-
-app.get('/register', (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build/index.html"))
-})
-
-app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build/index.html"))
 })
 
 mongoose.connect(db || process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true}).then(() => console.log("MongoDB sucessfully connected")).catch(err => console.log(err))
