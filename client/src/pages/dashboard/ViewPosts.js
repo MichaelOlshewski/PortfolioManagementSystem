@@ -10,7 +10,7 @@ import Title from './Title';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
 
-// Generate Order Data
+// Generate View Posts Data
 function createData(id, date, title, author) {
   return { id, date, title, author };
 }
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Orders() {
+export default function ViewPosts() {
   const classes = useStyles();
   return (
     <React.Fragment>

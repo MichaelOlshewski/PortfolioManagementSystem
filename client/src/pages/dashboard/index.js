@@ -17,7 +17,7 @@ import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { mainListItems } from "./listItems";
-import Orders from "./Orders";
+import ViewPosts from "./ViewPosts";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
@@ -208,7 +208,7 @@ function Dashboard(props) {
                         {/* Recent Posts */}
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-                                <Orders />
+                                <ViewPosts />
                             </Paper>
                         </Grid>
                     </Grid>
