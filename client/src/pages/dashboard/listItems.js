@@ -29,7 +29,7 @@ export const mainListItems = (
         <ListItemText primary="View Projects" />
       </ListItem>
     </Link>
-    <Link to="/dashboard/projects/viewall">
+    <Link to="/dashboard/projects/new">
       <ListItem button>
         <ListItemIcon>
           <BarChartIcon />
