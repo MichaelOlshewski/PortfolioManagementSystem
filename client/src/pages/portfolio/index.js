@@ -54,7 +54,7 @@ function FullWidthGrid(props, settingData) {
 
     return (
         <React.Fragment>
-            <Navbar name={settings.portName}/>
+            <Navbar name={settings.portName} linkedinLink={settings.linkedinLink} githubLink={settings.githubLink}/>
             <div className={classes.root} style={{ paddingTop: 10 }}>
                 <Grid container spacing={3}>
                     <Grid item md={6}>

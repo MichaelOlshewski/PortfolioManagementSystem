@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { MdExitToApp } from 'react-icons/md';
+import { FaLinkedin, FaGithub } from 'react-icons/fa';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
         color: "#ffffff",
         textDecoration: "none",
         fontSize: "24px",
-        marginTop: "3px"
+        marginTop: "3px",
+        marginRight: "8px"
     },
     navColor: {
         backgroundColor: "#163172",
@@ -39,6 +41,8 @@ function Navbar(props) {
                 <Typography variant="h6" className={classes.title}>
                     {props.name}
                 </Typography>
+                <a href={props.linkedinLink} className={classes.logoutBtn} rel="noopener noreferrer" target="_blank"><FaLinkedin /></a>
+                <a href={props.githubLink} className={classes.logoutBtn} rel="noopener noreferrer" target="_blank"><FaGithub /></a>
                 <Link onClick={props.btnAction} className={classes.logoutBtn} to="/login"><MdExitToApp /></Link>
             </Toolbar>
         </AppBar>
