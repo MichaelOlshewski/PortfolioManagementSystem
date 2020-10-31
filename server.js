@@ -1,11 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path')
-const cors = require('cors')
-const passport = require('passport')
+const path = require('path');
+const cors = require('cors');
+const passport = require('passport');
 
-const users = require('./routes/api/users')
-const portdata = require('./routes/api/portdata')
+const users = require('./routes/api/users');
+const portdata = require('./routes/api/portdata');
+const settings = require('./routes/api/settings')
 
 require("dotenv").config();
 
@@ -34,6 +35,7 @@ require('./config/passport')(passport);
 //Routes
 app.use("/api/users", users)
 app.use("/api/portdata", portdata)
+app.use("/api/settings", settings)
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"))
