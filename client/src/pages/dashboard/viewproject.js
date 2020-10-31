@@ -121,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Dashboard(props) {
+function ViewProjects(props) {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(true);
@@ -226,7 +226,7 @@ function Dashboard(props) {
     );
 }
 
-Dashboard.propTypes = {
+ViewProjects.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
 };
@@ -235,4 +235,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(Dashboard);
+export default connect(mapStateToProps, { logoutUser })(ViewProjects);

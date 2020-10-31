@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import axios from "axios";
 
 import { logoutUser } from "../../actions/authActions";
 
@@ -25,7 +26,6 @@ import {
 import { Menu, ChevronLeft } from "@material-ui/icons";
 
 import { mainListItems } from "./components/listItems";
-import ViewPosts from "./components/ViewPosts";
 
 function Copyright() {
     return (
@@ -121,10 +121,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Dashboard(props) {
+function Settings(props) {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(true);
+    const [settings, setSettings] = useState([])
+
+    // "http://" + window.location.hostname + ":" + window.location.port +
+    useEffect(() => {
+        axios.get("/api/settings")
+            .then((response) => {
+                setSettings(response.data);
+                console.log("settings recieved");
+                console.log(response.data);
+            })
+            .catch(() => {
+                alert("error recieving settings");
+            });
+    }, [])
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -210,10 +224,18 @@ function Dashboard(props) {
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
-                        {/* Recent Posts */}
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-                                <ViewPosts />
+                                <h2 style={{ textAlign: "center" }}>Portfolio Settings</h2>
+                                {settings.map((data) => {
+                                    return (
+                                        <div key={data._id}>
+                                            <p><strong>Portfolio Name:</strong> {data.portName}</p>
+                                            <p><strong>GitHub:</strong> <a target="_blank" rel="noopener noreferrer" href={data.githubLink}>{data.githubLink}</a></p>
+                                            <p><strong>LinkedIn:</strong> <a target="_blank" rel="noopener noreferrer" href={data.linkedinLink}>{data.linkedinLink}</a></p>
+                                        </div>
+                                    )
+                                })}
                             </Paper>
                         </Grid>
                     </Grid>
@@ -226,7 +248,7 @@ function Dashboard(props) {
     );
 }
 
-Dashboard.propTypes = {
+Settings.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
 };
@@ -235,4 +257,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(Dashboard);
+export default connect(mapStateToProps, { logoutUser })(Settings);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -9,19 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
-
-// Generate View Posts Data
-function createData(id, date, title, author) {
-  return { id, date, title, author };
-}
-
-const rows = [
-  createData(0, '16 Mar, 2019', 'Alex Portfolio', 'Alex Fuss'),
-  createData(1, '17 Mar, 2019', 'Michael Portfolio','Michael Olshewski'),
-  createData(2, '18 Mar, 2019', 'Allison Portfolio', 'Allison Barnard'),
-  createData(3, '19 Mar, 2019', 'George Portfolio', 'George Blake'),
-  createData(4, '15 Mar, 2019', 'Aaron Portfolio', 'Aaron Holcomb'),
-];
+import axios from 'axios'
 
 function preventDefault(event) {
   event.preventDefault();
@@ -33,7 +21,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ViewPosts() {
+function ViewPosts() {
+
+  const [portData, setPortData] = useState([]);
+
+  const getPortData = () => {
+    axios.get("/api/portdata")
+      .then((response) => {
+        setPortData(response.data)
+        console.log("data recieved")
+        console.log(response.data)
+      })
+      .catch(() => {
+        alert("error recieving data")
+      })
+  }
+
+  useEffect(() => {
+    getPortData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -44,15 +53,15 @@ export default function ViewPosts() {
             <TableCell><Typography fontWeight="fontWeightBold" m={1}>Date</Typography></TableCell>
             <TableCell><Typography fontWeight="fontWeightBold" m={1}>Post Title</Typography></TableCell>
             <TableCell><Typography fontWeight="fontWeightBold" m={1}>Author</Typography></TableCell>
-            <TableCell><Typography fontWeight="fontWeightBold" m={1}>Edit</Typography></TableCell>
+            <TableCell><Typography fontWeight="fontWeightBold" m={1}>Actions</Typography></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.title}</TableCell>
-              <TableCell>{row.author}</TableCell>
+          {portData.map((project) => (
+            <TableRow key={project._id}>
+              <TableCell>{project.title}</TableCell>
+              <TableCell>{project.description}</TableCell>
+              <TableCell>{project.altTag}</TableCell>
               <TableCell><EditIcon color="primary" /></TableCell>
             </TableRow>
           ))}
@@ -66,3 +75,5 @@ export default function ViewPosts() {
     </React.Fragment>
   );
 }
+
+export default ViewPosts
