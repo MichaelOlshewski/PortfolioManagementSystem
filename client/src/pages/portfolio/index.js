@@ -69,15 +69,15 @@ function FullWidthGrid(props, settingData) {
                         return (
                             <Grid key={project._id} item xs={12} sm={6}>
                                 <Paper className={classes.paper}>
-                                    <a className="App 1" target="_blank" href={project.deployedLink}>
+                                    <a rel="noopener noreferrer" target="_blank" href={project.deployedLink}>
                                         {project.title}
                                     </a>
                                     <p>
                                         {project.description}
                                     </p>
-                                    <a target="_blank" href={project.deployedLink}>View Deployed Application</a>
+                                    <a target="_blank" rel="noopener noreferrer" href={project.deployedLink}>View Deployed Application</a>
                                     {" "}
-                                    <a target="_blank" href={project.repoLink}>View Repository for App</a>
+                                    <a target="_blank" rel="noopener noreferrer" href={project.repoLink}>View Repository for App</a>
                                 </Paper>
                             </Grid>
                         )
