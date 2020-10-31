@@ -37,4 +37,4 @@ const PortfolioSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model("Portfolio Content", PortfolioSchema)
+module.exports = mongoose.model("portdata", PortfolioSchema, "portdata")

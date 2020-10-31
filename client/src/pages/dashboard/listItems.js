@@ -8,6 +8,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import CompassCalibrationIcon from '@material-ui/icons/CompassCalibration';
+import PersonPinIcon from '@material-ui/icons/PersonPin';
 
 export const mainListItems = (
   <div>
@@ -42,6 +43,12 @@ export const mainListItems = (
         <CompassCalibrationIcon />
       </ListItemIcon>
       <ListItemText primary="Plugins" />
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+        <PersonPinIcon />
+      </ListItemIcon>
+      <ListItemText primary="View Portfolio" />
     </ListItem>
   </div>
 );

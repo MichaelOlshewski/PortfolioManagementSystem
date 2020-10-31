@@ -1,4 +1,6 @@
 module.exports = {
-    User: require("./user")
+    User: require("./User"),
+    PortData: require("./PortData"),
+    Settings: require('./Settings')
   };
   
