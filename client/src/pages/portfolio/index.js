@@ -1,32 +1,91 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import Navbar from "../../components/Navbar";
+import axios from "axios";
 
-class Portfolio extends Component {
-    render() {
-        return (
-            <div style={{ height: "75vh"}} className="container valign-wrapper">
-                <div className="row">
-                    <div className="col s12 center-align">
-                        <h4>
-                            <b>Build</b> a login/auth app with the{" "}
-                            <span style={{ fontFamily: "monospace"}}>MERN</span>
-                            stack from scratch
-                        </h4>
-                        <p className="flow-text grey-text text-darken-1">
-                            Create a (minimal) full-stack app with user authentication via passport and JWTs
-                        </p>
-                        <br />
-                        <div className="col s6">
-                            <Link to="/register" style={{width: "140px", borderRadius: "3px", letterSpacing: "1.5px"}} className="btn btn-large waves-effect waves-light hoverable blue accent-3">Register</Link>
-                        </div>
-                        <div className="col s6">
-                            <Link to="/login" style={{width: "140px", borderRadius: "3px", letterSpacing: "1.5px"}} className="btn btn-large btn-flat waves-effect white black-text">Login</Link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: "center",
+        color: theme.palette.text.secondary,
+    },
+}));
+
+function FullWidthGrid(props, settingData) {
+
+    const [portData, setPortData] = useState([]);
+    const [settings, setSettings] = useState([])
+
+    useEffect(() => {
+        getPortData();
+        getPortSettings();
+    }, []);
+
+    const getPortData = () => {
+        axios.get("/api/portdata")
+            .then((response) => {
+                setPortData(response.data)
+                console.log("data recieved")
+                console.log(response.data)
+            })
+            .catch(() => {
+                alert("error recieving data")
+            })
     }
+
+    const getPortSettings = () => {
+        axios.get("/api/settings")
+            .then((response) => {
+                setSettings(response.data[0])
+                console.log("settings recieved")
+                console.log(response.data[0])
+            })
+            .catch(() => {
+                alert("error recieving settings")
+            })
+    }
+
+    const classes = useStyles();
+
+    return (
+        <React.Fragment>
+            <Navbar name={settings.portName} linkedinLink={settings.linkedinLink} githubLink={settings.githubLink}/>
+            <div className={classes.root} style={{ paddingTop: 10 }}>
+                <Grid container spacing={3}>
+                    <Grid item md={6}>
+                        <Paper className={classes.paper}>
+                            Image for Portfolio & Social Links{" "}
+                        </Paper>
+                    </Grid>
+                    <Grid item md={6}>
+                        <Paper className={classes.paper}> About Projects</Paper>
+                    </Grid>
+                    {portData.map((project) => {
+                        return (
+                            <Grid key={project._id} item xs={12} sm={6}>
+                                <Paper className={classes.paper}>
+                                    <a rel="noopener noreferrer" target="_blank" href={project.deployedLink}>
+                                        {project.title}
+                                    </a>
+                                    <p>
+                                        {project.description}
+                                    </p>
+                                    <a target="_blank" rel="noopener noreferrer" href={project.deployedLink}>View Deployed Application</a>
+                                    {" "}
+                                    <a target="_blank" rel="noopener noreferrer" href={project.repoLink}>View Repository for App</a>
+                                </Paper>
+                            </Grid>
+                        )
+                    })}
+                </Grid>
+            </div>
+        </React.Fragment>
+    );
 }
 
-export default Portfolio
+export default FullWidthGrid;
