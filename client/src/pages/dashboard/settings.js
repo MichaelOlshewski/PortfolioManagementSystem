@@ -32,7 +32,7 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
-            <Link color="inherit" href="https://material-ui.com/">
+            <Link color="inherit" to="https://material-ui.com/">
                 Portfolio Management System
             </Link>{" "}
             {new Date().getFullYear()}
@@ -231,7 +231,7 @@ function Settings(props) {
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 <h2 style={{ textAlign: "center" }}>Portfolio Settings</h2>
-                                <Link strict to="/dashboard/settings/edit"><Button color="primary">Edit Settings</Button></Link>
+                                <Link to="/dashboard/settings/edit"><Button color="primary">Edit Settings</Button></Link>
                                 {settings.map((data) => {
                                     return (
                                         <div key={data._id}>

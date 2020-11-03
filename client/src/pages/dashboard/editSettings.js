@@ -3,10 +3,10 @@ import clsx from "clsx";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
-
-// eslint-disable-next-line
-import { settingsPost } from '../../actions/postActions';
+import { useHistory } from 'react-router-dom'
 import { logoutUser } from '../../actions/authActions';
+import { settingsPost } from '../../actions/postActions';
+
 
 import {
     makeStyles,
@@ -138,6 +138,8 @@ const useStyles = makeStyles((theme) => ({
 function EditSettings(props) {
     const classes = useStyles();
 
+    let history = useHistory();
+
     const [open, setOpen] = React.useState(true);
     // eslint-disable-next-line
     const [settings, setSettings] = useState([])
@@ -196,6 +198,8 @@ function EditSettings(props) {
         // *************DELETE*************
         console.log(settingsData)
         // *************DELETE*************
+
+        history.push("/dashboard/settings")
     }
 
     return (
@@ -305,7 +309,7 @@ function EditSettings(props) {
                                         className={classes.submit}
                                         style={{ marginTop: 15, width: 350 }}
                                     >
-                                        <Link color="inherit" to="/dashboard/settings">
+                                        <Link color="inherit" exact to="/dashboard/settings">
                                             Save Settings
                                         </Link>
                                     </Button>
@@ -331,4 +335,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(EditSettings);
+export default connect(mapStateToProps, { logoutUser, settingsPost })(EditSettings);
