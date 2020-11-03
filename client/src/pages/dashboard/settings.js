@@ -231,7 +231,7 @@ function Settings(props) {
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 <h2 style={{ textAlign: "center" }}>Portfolio Settings</h2>
-                                <Link exact to="/dashboard/settings/edit"><Button color="primary">Edit Settings</Button></Link>
+                                <Link strict to="/dashboard/settings/edit"><Button color="primary">Edit Settings</Button></Link>
                                 {settings.map((data) => {
                                     return (
                                         <div key={data._id}>
