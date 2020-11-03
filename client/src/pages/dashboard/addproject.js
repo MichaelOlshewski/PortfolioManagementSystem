@@ -25,7 +25,7 @@ import {
 import { Menu, ChevronLeft } from "@material-ui/icons";
 
 import { mainListItems } from "./components/listItems";
-import ViewPosts from "./components/ViewPosts";
+//import ViewPosts from "./components/ViewPosts";
 
 function Copyright() {
     return (
@@ -166,7 +166,7 @@ function Dashboard(props) {
                         noWrap
                         className={classes.title}
                     >
-                        Dashboard
+                        Add Project
                     </Typography>
                     <IconButton color="inherit">
                         <Typography
@@ -213,7 +213,7 @@ function Dashboard(props) {
                         {/* Recent Posts */}
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-                                <ViewPosts />
+
                             </Paper>
                         </Grid>
                     </Grid>

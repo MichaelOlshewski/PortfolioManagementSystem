@@ -21,6 +21,7 @@ import {
     Grid,
     Paper,
     Link,
+    Button,
 } from "@material-ui/core";
 
 import { Menu, ChevronLeft } from "@material-ui/icons";
@@ -132,8 +133,11 @@ function Settings(props) {
         axios.get("/api/settings")
             .then((response) => {
                 setSettings(response.data);
+
+                // *************DELETE*************
                 console.log("settings recieved");
                 console.log(response.data);
+                // *************DELETE*************
             })
             .catch(() => {
                 alert("error recieving settings");
@@ -180,7 +184,7 @@ function Settings(props) {
                         noWrap
                         className={classes.title}
                     >
-                        Dashboard
+                        Portfolio Settings
                     </Typography>
                     <IconButton color="inherit">
                         <Typography
@@ -227,6 +231,7 @@ function Settings(props) {
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 <h2 style={{ textAlign: "center" }}>Portfolio Settings</h2>
+                                <a href={"/dashboard/settings/edit/"}><Button color="primary">Edit Settings</Button></a>
                                 {settings.map((data) => {
                                     return (
                                         <div key={data._id}>

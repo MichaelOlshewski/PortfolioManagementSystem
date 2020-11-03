@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import axios from "axios";
 
-import { logoutUser } from "../../actions/authActions";
+// eslint-disable-next-line
+import { settingsPost } from '../../actions/postActions';
+import { logoutUser } from '../../actions/authActions';
 
 import {
     makeStyles,
@@ -20,12 +23,13 @@ import {
     Grid,
     Paper,
     Link,
+    TextField,
+    Button
 } from "@material-ui/core";
 
 import { Menu, ChevronLeft } from "@material-ui/icons";
 
 import { mainListItems } from "./components/listItems";
-import ViewPosts from "./components/ViewPosts";
 
 function Copyright() {
     return (
@@ -119,12 +123,50 @@ const useStyles = makeStyles((theme) => ({
     fixedHeight: {
         height: 240,
     },
+    fixedWidth: {
+        width: 350,
+    },
+    textCenter: {
+        textAlign: "center"
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
 }));
 
-function ViewProjects(props) {
+function EditSettings(props) {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(true);
+    // eslint-disable-next-line
+    const [settings, setSettings] = useState([])
+    const [portName, setPortName] = useState("");
+    const [githubLink, setGithubLink] = useState("");
+    const [linkedinLink, setLinkedinLink] = useState({});
+    const [settingsId, setSettingsId] = useState({});
+
+    const onChange = e => {
+        setPortName(document.getElementById("portfolioName").value);
+        setGithubLink(document.getElementById("githubLink").value);
+        setLinkedinLink(document.getElementById("linkedinLink").value);
+    }
+
+    // "http://" + window.location.hostname + ":" + window.location.port +
+    useEffect(() => {
+        axios.get("/api/settings")
+            .then((response) => {
+                setSettings(response.data);
+                setSettingsId(response.data[0]._id)
+                // *************DELETE*************
+                // console.log("settings recieved");
+                // console.log(response.data);
+                // *************DELETE*************
+            })
+            .catch(() => {
+                alert("error recieving settings");
+            });
+    }, [])
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -138,6 +180,23 @@ function ViewProjects(props) {
         e.preventDefault();
         props.logoutUser();
     };
+
+    const onSubmit = e => {
+        e.preventDefault();
+
+        const settingsData = {
+            portName,
+            githubLink,
+            linkedinLink,
+            settingsId
+        }
+
+        props.settingsPost(settingsData)
+
+        // *************DELETE*************
+        console.log(settingsData)
+        // *************DELETE*************
+    }
 
     return (
         <div className={classes.root}>
@@ -166,7 +225,7 @@ function ViewProjects(props) {
                         noWrap
                         className={classes.title}
                     >
-                        All Projects
+                        Edit Settings
                     </Typography>
                     <IconButton color="inherit">
                         <Typography
@@ -208,12 +267,49 @@ function ViewProjects(props) {
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
-                <Container maxWidth="lg" className={classes.container}>
+                <Container maxWidth="md" style={{ marginTop: 50 }} className={classes.container && classes.textCenter}>
                     <Grid container spacing={3}>
-                        {/* Recent Posts */}
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-                                <ViewPosts />
+                                <h2 style={{ textAlign: "center" }}>Edit the Portfolio Settings</h2>
+                                <form className={classes.form} noValidate onSubmit={onSubmit}>
+                                    <TextField
+                                        className={classes.fixedWidth}
+                                        id="portfolioName"
+                                        label="Portfolio Name"
+                                        type="text"
+                                        onChange={onChange}
+                                    />
+                                    <br />
+                                    <TextField
+                                        className={classes.fixedWidth}
+                                        id="githubLink"
+                                        label="GitHub Profile"
+                                        type="text"
+                                        onChange={onChange}
+                                    />
+                                    <br />
+                                    <TextField
+                                        className={classes.fixedWidth}
+                                        id="linkedinLink"
+                                        label="LinkedIn Profile"
+                                        type="text"
+                                        onChange={onChange}
+                                    />
+                                    <br />
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.submit}
+                                        style={{ marginTop: 15, width: 350 }}
+                                    >
+                                        <Link color="inherit" to="/dashboard/settings">
+                                            Save Settings
+                                        </Link>
+                                    </Button>
+                                </form>
                             </Paper>
                         </Grid>
                     </Grid>
@@ -226,7 +322,7 @@ function ViewProjects(props) {
     );
 }
 
-ViewProjects.propTypes = {
+EditSettings.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
 };
@@ -235,4 +331,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(ViewProjects);
+export default connect(mapStateToProps, { logoutUser })(EditSettings);

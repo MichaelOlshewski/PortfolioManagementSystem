@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,20 +7,18 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Typography from '@material-ui/core/Typography';
-import axios from 'axios'
-
-function preventDefault(event) {
-  event.preventDefault();
-}
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
     marginTop: theme.spacing(3),
+    textAlign: "center"
   },
 }));
 
-function ViewPosts() {
+function ViewPosts(props) {
 
   const [portData, setPortData] = useState([]);
 
@@ -46,13 +43,13 @@ function ViewPosts() {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>View Posts</Title>
+      <Title>View Projects</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell><Typography fontWeight="fontWeightBold" m={1}>Date</Typography></TableCell>
-            <TableCell><Typography fontWeight="fontWeightBold" m={1}>Post Title</Typography></TableCell>
-            <TableCell><Typography fontWeight="fontWeightBold" m={1}>Author</Typography></TableCell>
+            <TableCell><Typography fontWeight="fontWeightBold" m={1}>Project Name</Typography></TableCell>
+            <TableCell><Typography fontWeight="fontWeightBold" m={1}>Description</Typography></TableCell>
+            <TableCell><Typography fontWeight="fontWeightBold" m={1}>Alternate Tag</Typography></TableCell>
             <TableCell><Typography fontWeight="fontWeightBold" m={1}>Actions</Typography></TableCell>
           </TableRow>
         </TableHead>
@@ -62,15 +59,13 @@ function ViewPosts() {
               <TableCell>{project.title}</TableCell>
               <TableCell>{project.description}</TableCell>
               <TableCell>{project.altTag}</TableCell>
-              <TableCell><EditIcon color="primary" /></TableCell>
+              <TableCell><EditIcon color="secondary" /><DeleteForeverIcon color="error" /></TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more posts
-        </Link>
+        Showing all {portData.length} records
       </div>
     </React.Fragment>
   );

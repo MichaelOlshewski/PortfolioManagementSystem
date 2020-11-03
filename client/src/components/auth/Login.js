@@ -69,29 +69,31 @@ function Login(props) {
     e.preventDefault();
 
     const userData = {
-        email,
-        password
+      email,
+      password
     }
 
     props.loginUser(userData)
 
+    // *************DELETE*************
     console.log(userData)
+    // *************DELETE*************
   }
 
   let userTextField;
 
   if (errors.email || errors.emailnotfound) {
-    userTextField = <TextField variant="outlined" margin="normal" required fullWidth id="email" label="Email Address" name="email" type="email" autoComplete="email" autoFocus onChange={onChange} value={email} error className={classnames("", { invalid: errors.email || errors.emailnotfound})}/>
+    userTextField = <TextField variant="outlined" margin="normal" required fullWidth id="email" label="Email Address" name="email" type="email" autoComplete="email" autoFocus onChange={onChange} value={email} error className={classnames("", { invalid: errors.email || errors.emailnotfound })} />
   } else {
-    userTextField = <TextField variant="outlined" margin="normal" required fullWidth id="email" label="Email Address" name="email" type="email" autoComplete="email" autoFocus onChange={onChange} value={email} className={classnames("", { invalid: errors.email || errors.emailnotfound})}/>
+    userTextField = <TextField variant="outlined" margin="normal" required fullWidth id="email" label="Email Address" name="email" type="email" autoComplete="email" autoFocus onChange={onChange} value={email} className={classnames("", { invalid: errors.email || errors.emailnotfound })} />
   }
 
   let passTextField;
 
   if (errors.password || errors.passwordincorrect) {
-    passTextField = <TextField variant="outlined" margin="normal" required fullWidth id="password" label="Password" name="password" type="password" autoComplete="current-password" onChange={onChange} value={password} error className={classnames("", { invalid: errors.password || errors.passwordincorrect})}/>
+    passTextField = <TextField variant="outlined" margin="normal" required fullWidth id="password" label="Password" name="password" type="password" autoComplete="current-password" onChange={onChange} value={password} error className={classnames("", { invalid: errors.password || errors.passwordincorrect })} />
   } else {
-    passTextField = <TextField variant="outlined" margin="normal" required fullWidth id="password" label="Password" name="password" type="password" autoComplete="current-password" onChange={onChange} value={password} className={classnames("", { invalid: errors.password || errors.passwordincorrect})}/>
+    passTextField = <TextField variant="outlined" margin="normal" required fullWidth id="password" label="Password" name="password" type="password" autoComplete="current-password" onChange={onChange} value={password} className={classnames("", { invalid: errors.password || errors.passwordincorrect })} />
   }
 
   return (
@@ -141,17 +143,17 @@ function Login(props) {
 }
 
 Login.propTypes = {
-    loginUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
+  auth: state.auth,
+  errors: state.errors
 });
 
 export default connect(
-    mapStateToProps,
-    { loginUser }
+  mapStateToProps,
+  { loginUser }
 )(Login);

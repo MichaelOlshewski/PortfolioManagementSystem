@@ -14,6 +14,7 @@ import Register from "./components/auth/Register";
 import AddProject from "./pages/dashboard/addproject";
 import ViewProject from "./pages/dashboard/viewproject";
 import Settings from "./pages/dashboard/settings";
+import EditSettings from './pages/dashboard/editSettings'
 
 // Check localStorage for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -57,8 +58,18 @@ function App() {
                         />
                         <PrivateRoute
                             exact
+                            path="/dashboard/settings/edit"
+                            component={EditSettings}
+                        />
+                        <PrivateRoute
+                            exact
                             path="/dashboard/projects/viewall"
                             component={ViewProject}
+                        />
+                        <PrivateRoute
+                            exact
+                            path="/dashboard/projects/new"
+                            component={AddProject}
                         />
                         <PrivateRoute path="/dashboard" component={Dashboard} />
                     </Switch>

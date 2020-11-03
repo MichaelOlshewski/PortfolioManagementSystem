@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -25,7 +25,16 @@ import {
 import { Menu, ChevronLeft } from "@material-ui/icons";
 
 import { mainListItems } from "./components/listItems";
-import ViewPosts from "./components/ViewPosts";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Title from './components/Title';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+
+import axios from 'axios'
 
 function Copyright() {
     return (
@@ -119,12 +128,17 @@ const useStyles = makeStyles((theme) => ({
     fixedHeight: {
         height: 240,
     },
+    seeMore: {
+        marginTop: theme.spacing(3),
+        textAlign: "center"
+    },
 }));
 
 function Dashboard(props) {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(true);
+    const [portData, setPortData] = useState([]);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -133,6 +147,22 @@ function Dashboard(props) {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    const getPortData = () => {
+        axios.get("/api/portdata")
+            .then((response) => {
+                setPortData(response.data)
+                console.log("data recieved")
+                console.log(response.data)
+            })
+            .catch(() => {
+                alert("error recieving data")
+            })
+    }
+
+    useEffect(() => {
+        getPortData();
+    }, [])
 
     const onLogoutClick = (e) => {
         e.preventDefault();
@@ -213,7 +243,35 @@ function Dashboard(props) {
                         {/* Recent Posts */}
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-                                <ViewPosts />
+                                <React.Fragment>
+                                    <Title>View Projects</Title>
+                                    <Table size="small">
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell><Typography fontWeight="fontWeightBold" m={1}>Project Name</Typography></TableCell>
+                                                <TableCell><Typography fontWeight="fontWeightBold" m={1}>Description</Typography></TableCell>
+                                                <TableCell><Typography fontWeight="fontWeightBold" m={1}>Alternate Tag</Typography></TableCell>
+                                                <TableCell><Typography fontWeight="fontWeightBold" m={1}>Actions</Typography></TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {portData.slice(0, 5).map((project) => (
+                                                <TableRow key={project._id}>
+                                                    <TableCell>{project.title}</TableCell>
+                                                    <TableCell>{project.description}</TableCell>
+                                                    <TableCell>{project.altTag}</TableCell>
+                                                    <TableCell><EditIcon color="secondary" /><DeleteForeverIcon color="error" /></TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                    <div className={classes.seeMore}>
+                                        1 - 5 of {portData.length}<br />
+                                        <Link color="primary" href="/dashboard/projects/viewall">
+                                            See all {portData.length} records
+                                        </Link>
+                                    </div>
+                                </React.Fragment>
                             </Paper>
                         </Grid>
                     </Grid>
