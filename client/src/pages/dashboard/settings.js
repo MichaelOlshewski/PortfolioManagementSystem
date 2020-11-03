@@ -3,6 +3,7 @@ import clsx from "clsx";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
+import { Link } from 'react-router-dom'
 
 import { logoutUser } from "../../actions/authActions";
 
@@ -20,7 +21,6 @@ import {
     Container,
     Grid,
     Paper,
-    Link,
     Button,
 } from "@material-ui/core";
 
@@ -231,7 +231,7 @@ function Settings(props) {
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 <h2 style={{ textAlign: "center" }}>Portfolio Settings</h2>
-                                <a href={"/dashboard/settings/edit/"}><Button color="primary">Edit Settings</Button></a>
+                                <Link exact to="/dashboard/settings/edit"><Button color="primary">Edit Settings</Button></Link>
                                 {settings.map((data) => {
                                     return (
                                         <div key={data._id}>
