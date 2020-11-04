@@ -137,11 +137,6 @@ function Settings(props) {
         axios.get("/api/settings")
             .then((response) => {
                 setSettings(response.data);
-
-                // *************DELETE*************
-                console.log("settings recieved");
-                console.log(response.data);
-                // *************DELETE*************
             })
             .catch(() => {
                 alert("error recieving settings");
