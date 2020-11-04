@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { HashRouter } from 'react-router-dom'
 
 ReactDOM.render(
   <React.StrictMode>
-    <CssBaseline/>
-    <App />
+    <CssBaseline />
+    <HashRouter>
+      <App />
+    </HashRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
