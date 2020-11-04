@@ -73,6 +73,9 @@ function FullWidthGrid(props, settingData) {
                                         {project.title}
                                     </a>
                                     <p>
+                                        {project.image}
+                                    </p>
+                                    <p>
                                         {project.description}
                                     </p>
                                     <a target="_blank" rel="noopener noreferrer" href={project.deployedLink}>View Deployed Application</a>
