@@ -11,7 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { useHistory } from 'react-router-dom'
 import { deleteProject } from '../../../actions/postActions';
 import { editProject } from '../../../actions/postActions';
 import { logoutUser } from '../../../actions/authActions'
@@ -29,8 +28,6 @@ const useStyles = makeStyles((theme) => ({
 function ViewPosts(props) {
 
   const [portData, setPortData] = useState([]);
-
-  let history = useHistory();
 
   const getPortData = () => {
     axios.get("/api/portdata")

@@ -64,11 +64,6 @@ function App() {
                         />
                         <PrivateRoute
                             exact
-                            path="/dashboard/projects/new"
-                            component={AddProject}
-                        />
-                        <PrivateRoute
-                            exact
                             path="/dashboard/project/edit/"
                             component={EditProject}
                         />
