@@ -30,8 +30,6 @@ function FullWidthGrid(props, settingData) {
         axios.get("/api/portdata")
             .then((response) => {
                 setPortData(response.data)
-                console.log("data recieved")
-                console.log(response.data)
             })
             .catch(() => {
                 alert("error recieving data")
@@ -42,11 +40,6 @@ function FullWidthGrid(props, settingData) {
         axios.get("/api/settings")
             .then((response) => {
                 setSettings(response.data[0])
-
-                // *************DELETE*************
-                console.log("settings recieved")
-                console.log(response.data[0])
-                // *************DELETE*************
             })
             .catch(() => {
                 alert("error recieving settings")
