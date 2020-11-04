@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import axios from "axios";
+import { Link } from 'react-router-dom'
 
 import { logoutUser } from "../../actions/authActions";
-import { deleteProject } from '../../actions/postActions';
-import { editProject } from '../../actions/postActions';
 
 import {
     makeStyles,
@@ -21,19 +21,18 @@ import {
     Container,
     Grid,
     Paper,
-    Link,
+    Button,
 } from "@material-ui/core";
 
 import { Menu, ChevronLeft } from "@material-ui/icons";
 
 import { MainListItems } from "./components/listItems";
-import ViewPosts from '../dashboard/components/ViewPosts'
 
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
-            <Link color="inherit" href="https://material-ui.com/">
+            <Link color="inherit" to="https://material-ui.com/">
                 Portfolio Management System
             </Link>{" "}
             {new Date().getFullYear()}
@@ -121,16 +120,28 @@ const useStyles = makeStyles((theme) => ({
     fixedHeight: {
         height: 240,
     },
-    seeMore: {
-        marginTop: theme.spacing(3),
-        textAlign: "center"
-    },
+    logoutBtn: {
+        color: "white",
+        textDecoration: "none"
+    }
 }));
 
-function Dashboard(props) {
+function Settings(props) {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(true);
+    const [settings, setSettings] = useState([])
+
+    // "http://" + window.location.hostname + ":" + window.location.port +
+    useEffect(() => {
+        axios.get("/api/settings")
+            .then((response) => {
+                setSettings(response.data);
+            })
+            .catch(() => {
+                alert("error recieving settings");
+            });
+    }, [])
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -172,7 +183,7 @@ function Dashboard(props) {
                         noWrap
                         className={classes.title}
                     >
-                        Dashboard
+                        Portfolio Settings
                     </Typography>
                     <IconButton color="inherit">
                         <Typography
@@ -216,10 +227,19 @@ function Dashboard(props) {
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
-                        {/* Recent Posts */}
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-                                <ViewPosts />
+                                <h2 style={{ textAlign: "center" }}>Portfolio Settings</h2>
+                                <Link to="/dashboard/settings/edit"><Button color="primary">Edit Settings</Button></Link>
+                                {settings.map((data) => {
+                                    return (
+                                        <div key={data._id}>
+                                            <p><strong>Portfolio Name:</strong> {data.portName}</p>
+                                            <p><strong>GitHub:</strong> <a target="_blank" rel="noopener noreferrer" href={data.githubLink}>{data.githubLink}</a></p>
+                                            <p><strong>LinkedIn:</strong> <a target="_blank" rel="noopener noreferrer" href={data.linkedinLink}>{data.linkedinLink}</a></p>
+                                        </div>
+                                    )
+                                })}
                             </Paper>
                         </Grid>
                     </Grid>
@@ -232,7 +252,7 @@ function Dashboard(props) {
     );
 }
 
-Dashboard.propTypes = {
+Settings.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
 };
@@ -241,4 +261,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser, deleteProject, editProject })(Dashboard);
+export default connect(mapStateToProps, { logoutUser })(Settings);

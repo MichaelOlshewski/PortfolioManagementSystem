@@ -86,7 +86,9 @@ function Register(props) {
             password2,
         };
 
+        // *************DELETE*************
         console.log(newUser);
+        // *************DELETE*************
 
         props.registerUser(newUser, props.history);
     };

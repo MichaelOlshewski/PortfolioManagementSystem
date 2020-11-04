@@ -16,14 +16,14 @@ const db = require('./config/keys').mongoURI;
 
 const PORT = process.env.PORT || 3001;
 
-app.use(express.urlencoded({ extended: true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static('client/build'));
 } else {
-   app.use(express.static('/client/build'))
+    app.use(express.static('/client/build'))
 }
 
 //Passport Middleware
@@ -53,7 +53,7 @@ app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"))
 })
 
-mongoose.connect(db || process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true}).then(() => console.log("MongoDB sucessfully connected")).catch(err => console.log(err))
+mongoose.connect(db || process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log("MongoDB sucessfully connected")).catch(err => console.log(err))
 
 app.listen(PORT, () => {
     console.log("========================================")

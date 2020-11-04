@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { logoutUser } from "../../actions/authActions";
-import { deleteProject } from '../../actions/postActions';
-import { editProject } from '../../actions/postActions';
 
 import {
     makeStyles,
@@ -27,7 +25,7 @@ import {
 import { Menu, ChevronLeft } from "@material-ui/icons";
 
 import { MainListItems } from "./components/listItems";
-import ViewPosts from '../dashboard/components/ViewPosts'
+//import ViewPosts from "./components/ViewPosts";
 
 function Copyright() {
     return (
@@ -121,13 +119,9 @@ const useStyles = makeStyles((theme) => ({
     fixedHeight: {
         height: 240,
     },
-    seeMore: {
-        marginTop: theme.spacing(3),
-        textAlign: "center"
-    },
 }));
 
-function Dashboard(props) {
+function EditProject(props) {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(true);
@@ -172,7 +166,7 @@ function Dashboard(props) {
                         noWrap
                         className={classes.title}
                     >
-                        Dashboard
+                        Edit Project
                     </Typography>
                     <IconButton color="inherit">
                         <Typography
@@ -219,7 +213,7 @@ function Dashboard(props) {
                         {/* Recent Posts */}
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-                                <ViewPosts />
+                                Edit Project
                             </Paper>
                         </Grid>
                     </Grid>
@@ -232,7 +226,7 @@ function Dashboard(props) {
     );
 }
 
-Dashboard.propTypes = {
+EditProject.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
 };
@@ -241,4 +235,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser, deleteProject, editProject })(Dashboard);
+export default connect(mapStateToProps, { logoutUser })(EditProject);
