@@ -24,8 +24,8 @@ import {
 
 import { Menu, ChevronLeft } from "@material-ui/icons";
 
-import { mainListItems } from "./components/listItems";
-import ViewPosts from "./components/ViewPosts";
+import { MainListItems } from "./components/listItems";
+//import ViewPosts from "./components/ViewPosts";
 
 function Copyright() {
     return (
@@ -121,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function ViewProjects(props) {
+function EditProject(props) {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(true);
@@ -166,7 +166,7 @@ function ViewProjects(props) {
                         noWrap
                         className={classes.title}
                     >
-                        All Projects
+                        Edit Project
                     </Typography>
                     <IconButton color="inherit">
                         <Typography
@@ -203,7 +203,7 @@ function ViewProjects(props) {
                     </IconButton>
                 </div>
                 <Divider />
-                <List>{mainListItems}</List>
+                <List><MainListItems /></List>
                 <Divider />
             </Drawer>
             <main className={classes.content}>
@@ -213,7 +213,7 @@ function ViewProjects(props) {
                         {/* Recent Posts */}
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-                                <ViewPosts />
+                                Edit Project
                             </Paper>
                         </Grid>
                     </Grid>
@@ -226,7 +226,7 @@ function ViewProjects(props) {
     );
 }
 
-ViewProjects.propTypes = {
+EditProject.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
 };
@@ -235,4 +235,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(ViewProjects);
+export default connect(mapStateToProps, { logoutUser })(EditProject);

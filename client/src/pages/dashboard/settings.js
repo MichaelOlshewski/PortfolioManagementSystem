@@ -26,7 +26,7 @@ import {
 
 import { Menu, ChevronLeft } from "@material-ui/icons";
 
-import { mainListItems } from "./components/listItems";
+import { MainListItems } from "./components/listItems";
 
 function Copyright() {
     return (
@@ -120,6 +120,10 @@ const useStyles = makeStyles((theme) => ({
     fixedHeight: {
         height: 240,
     },
+    logoutBtn: {
+        color: "white",
+        textDecoration: "none"
+    }
 }));
 
 function Settings(props) {
@@ -221,7 +225,7 @@ function Settings(props) {
                     </IconButton>
                 </div>
                 <Divider />
-                <List>{mainListItems}</List>
+                <List><MainListItems /></List>
                 <Divider />
             </Drawer>
             <main className={classes.content}>

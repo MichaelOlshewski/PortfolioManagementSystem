@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { useHistory } from 'react-router-dom'
 
 import { logoutUser } from "../../actions/authActions";
+import { createProject } from '../../actions/postActions'
 
 import {
     makeStyles,
@@ -20,12 +22,13 @@ import {
     Grid,
     Paper,
     Link,
+    TextField,
+    Button
 } from "@material-ui/core";
 
 import { Menu, ChevronLeft } from "@material-ui/icons";
 
-import { mainListItems } from "./components/listItems";
-//import ViewPosts from "./components/ViewPosts";
+import { MainListItems } from "./components/listItems";
 
 function Copyright() {
     return (
@@ -119,12 +122,32 @@ const useStyles = makeStyles((theme) => ({
     fixedHeight: {
         height: 240,
     },
+    fixedWidth: {
+        width: 350,
+    },
 }));
 
-function Dashboard(props) {
+function AddProject(props) {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(true);
+    const [title, setProjectTitle] = useState("");
+    const [image, setImageLink] = useState("");
+    const [altTag, setAltTag] = useState("");
+    const [description, setProjectDesc] = useState("");
+    const [deployedLink, setDeployedLink] = useState("");
+    const [repoLink, setRepoLink] = useState("")
+
+    let history = useHistory();
+
+    const onChange = e => {
+        setProjectTitle(document.getElementById("projectTitle").value);
+        setProjectDesc(document.getElementById("projectDesc").value);
+        //setImageLink(document.getElementById("imageLink").value);
+        setAltTag(document.getElementById("altTag").value);
+        setDeployedLink(document.getElementById("deployedLink").value);
+        setRepoLink(document.getElementById("repoLink").value);
+    }
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -138,6 +161,23 @@ function Dashboard(props) {
         e.preventDefault();
         props.logoutUser();
     };
+
+    const onSubmit = e => {
+        e.preventDefault();
+
+        const projectData = {
+            title,
+            description,
+            image,
+            altTag,
+            deployedLink,
+            repoLink
+        }
+
+        props.createProject(projectData)
+
+        history.push("/dashboard")
+    }
 
     return (
         <div className={classes.root}>
@@ -203,7 +243,7 @@ function Dashboard(props) {
                     </IconButton>
                 </div>
                 <Divider />
-                <List>{mainListItems}</List>
+                <List><MainListItems /></List>
                 <Divider />
             </Drawer>
             <main className={classes.content}>
@@ -213,7 +253,75 @@ function Dashboard(props) {
                         {/* Recent Posts */}
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
-
+                                <h2 style={{ textAlign: "center" }}>Add a New Project</h2>
+                                <form className={classes.form} noValidate onSubmit={onSubmit}>
+                                    <TextField
+                                        className={classes.fixedWidth}
+                                        style={{ marginTop: 5 }}
+                                        id="projectTitle"
+                                        label="Name of Project"
+                                        type="text"
+                                        onChange={onChange}
+                                    />
+                                    <br />
+                                    <TextField
+                                        className={classes.fixedWidth}
+                                        style={{ marginTop: 5 }}
+                                        id="projectDesc"
+                                        label="Project Description"
+                                        type="text"
+                                        onChange={onChange}
+                                    />
+                                    <br />
+                                    <TextField
+                                        className={classes.fixedWidth}
+                                        style={{ marginTop: 5 }}
+                                        id="altTag"
+                                        label="Alternate Tags for Images"
+                                        type="text"
+                                        onChange={onChange}
+                                    />
+                                    <br />
+                                    <TextField
+                                        className={classes.fixedWidth}
+                                        style={{ marginTop: 5 }}
+                                        id="deployedLink"
+                                        label="Link to Deployed Application"
+                                        type="text"
+                                        onChange={onChange}
+                                    />
+                                    <br />
+                                    <TextField
+                                        className={classes.fixedWidth}
+                                        style={{ marginTop: 5 }}
+                                        id="repoLink"
+                                        label="Link to Application Repository"
+                                        type="text"
+                                        onChange={onChange}
+                                    />
+                                    <br />
+                                    {/* File Upload Stuff will go here */}
+                                    <input
+                                        accept="image/*"
+                                        className={classes.input}
+                                        id="contained-button-file"
+                                        multiple
+                                        type="file"
+                                        color="primary"
+                                        style={{ marginTop: 5 }}
+                                    />
+                                    <br />
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.submit}
+                                        style={{ marginTop: 15, width: 350 }}
+                                    >
+                                        Add Project
+                                    </Button>
+                                </form>
                             </Paper>
                         </Grid>
                     </Grid>
@@ -226,7 +334,7 @@ function Dashboard(props) {
     );
 }
 
-Dashboard.propTypes = {
+AddProject.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
 };
@@ -235,4 +343,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(Dashboard);
+export default connect(mapStateToProps, { logoutUser, createProject })(AddProject);

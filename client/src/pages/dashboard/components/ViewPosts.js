@@ -5,29 +5,37 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Button } from '@material-ui/core'
 import Title from './Title';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { useHistory } from 'react-router-dom'
+import { deleteProject } from '../../../actions/postActions';
+import { editProject } from '../../../actions/postActions';
+import { logoutUser } from '../../../actions/authActions'
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
     marginTop: theme.spacing(3),
     textAlign: "center"
   },
+  textCenter: {
+    textAlign: "center"
+  }
 }));
 
 function ViewPosts(props) {
 
   const [portData, setPortData] = useState([]);
 
+  let history = useHistory();
+
   const getPortData = () => {
     axios.get("/api/portdata")
       .then((response) => {
         setPortData(response.data)
-        console.log("data recieved")
-        console.log(response.data)
       })
       .catch(() => {
         alert("error recieving data")
@@ -36,21 +44,34 @@ function ViewPosts(props) {
 
   useEffect(() => {
     getPortData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const deletePost = (e) => {
+    e.preventDefault();
+    const projectId = e.target.parentNode.id
+    axios.delete("/api/portdata/delete/" + projectId)
+      .then(getPortData())
+  }
+
+  const editPost = (e) => {
+    e.preventDefault();
+    const projectId = e.target.parentNode.id
+    console.log(projectId)
+    editProject(projectId)
+  }
 
   const classes = useStyles();
+
   return (
     <React.Fragment>
       <Title>View Projects</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell><Typography fontWeight="fontWeightBold" m={1}>Project Name</Typography></TableCell>
-            <TableCell><Typography fontWeight="fontWeightBold" m={1}>Description</Typography></TableCell>
-            <TableCell><Typography fontWeight="fontWeightBold" m={1}>Alternate Tag</Typography></TableCell>
-            <TableCell><Typography fontWeight="fontWeightBold" m={1}>Actions</Typography></TableCell>
+            <TableCell><Typography className={classes.textCenter} fontWeight="fontWeightBold" m={1}>Project Name</Typography></TableCell>
+            <TableCell><Typography className={classes.textCenter} fontWeight="fontWeightBold" m={1}>Description</Typography></TableCell>
+            <TableCell><Typography className={classes.textCenter} fontWeight="fontWeightBold" m={1}>Alternate Tag</Typography></TableCell>
+            <TableCell><Typography className={classes.textCenter} fontWeight="fontWeightBold" m={1}>Actions</Typography></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -59,7 +80,7 @@ function ViewPosts(props) {
               <TableCell>{project.title}</TableCell>
               <TableCell>{project.description}</TableCell>
               <TableCell>{project.altTag}</TableCell>
-              <TableCell><EditIcon color="secondary" /><DeleteForeverIcon color="error" /></TableCell>
+              <TableCell className={classes.textCenter} id={project._id}><Button color="primary" onClick={editPost} id={project._id}>Edit</Button><Button color="secondary" onClick={deletePost} id={project._id}>Delete</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -67,8 +88,17 @@ function ViewPosts(props) {
       <div className={classes.seeMore}>
         Showing all {portData.length} records
       </div>
-    </React.Fragment>
+    </React.Fragment >
   );
 }
 
-export default ViewPosts
+ViewPosts.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logoutUser, deleteProject })(ViewPosts);

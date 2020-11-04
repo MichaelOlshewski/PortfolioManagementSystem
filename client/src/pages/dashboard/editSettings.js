@@ -29,7 +29,7 @@ import {
 
 import { Menu, ChevronLeft } from "@material-ui/icons";
 
-import { mainListItems } from "./components/listItems";
+import { MainListItems } from "./components/listItems";
 
 function Copyright() {
     return (
@@ -160,10 +160,6 @@ function EditSettings(props) {
             .then((response) => {
                 setSettings(response.data);
                 setSettingsId(response.data[0]._id)
-                // *************DELETE*************
-                // console.log("settings recieved");
-                // console.log(response.data);
-                // *************DELETE*************
             })
             .catch(() => {
                 alert("error recieving settings");
@@ -194,10 +190,6 @@ function EditSettings(props) {
         }
 
         props.settingsPost(settingsData)
-
-        // *************DELETE*************
-        console.log(settingsData)
-        // *************DELETE*************
 
         history.push("/dashboard/settings")
     }
@@ -266,7 +258,7 @@ function EditSettings(props) {
                     </IconButton>
                 </div>
                 <Divider />
-                <List>{mainListItems}</List>
+                <List><MainListItems /></List>
                 <Divider />
             </Drawer>
             <main className={classes.content}>
