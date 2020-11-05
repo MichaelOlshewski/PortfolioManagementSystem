@@ -44,6 +44,7 @@
     "path": "^0.12.7",
     "react-icons": "^3.11.0",
     "react-router": "^5.2.0",
+    "react-router-hash-history": "^0.2.3",
     "recharts": "^1.8.5",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
