@@ -44,27 +44,27 @@ function App() {
             <Router>
                 <div className="App">
                     <Route exact path="/" component={Portfolio} />
-                    <Route exact path="/#/register" component={Register} />
-                    <Route exact path="/#/login" component={Login} />
+                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/login" component={Login} />
                     <Switch>
                         <PrivateRoute
                             exact
-                            path="/#/dashboard/projects/new"
+                            path="/dashboard/projects/new"
                             component={AddProject}
                         />
                         <PrivateRoute
                             exact
-                            path="/#/dashboard/settings"
+                            path="/dashboard/settings"
                             component={Settings}
                         />
                         <PrivateRoute
                             exact
-                            path="/#/dashboard/settings/edit"
+                            path="/dashboard/settings/edit"
                             component={EditSettings}
                         />
                         <PrivateRoute
                             exact
-                            path="/#/dashboard/project/edit/"
+                            path="/dashboard/project/edit/"
                             component={EditProject}
                         />
                         <PrivateRoute path="/dashboard" component={Dashboard} />
