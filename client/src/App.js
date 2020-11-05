@@ -1,12 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
 import jwt_decode from "jwt-decode";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
-
 import Portfolio from "./pages/portfolio/";
 import Dashboard from "./pages/dashboard/";
 import Login from "./components/auth/Login";
@@ -14,7 +13,8 @@ import Register from "./components/auth/Register";
 import AddProject from "./pages/dashboard/addProject";
 import EditProject from './pages/dashboard/editProject'
 import Settings from "./pages/dashboard/settings";
-import EditSettings from './pages/dashboard/editSettings'
+import EditSettings from './pages/dashboard/editSettings';
+import { useHistory } from 'react-router'
 
 
 // Check localStorage for token to keep user logged in
