@@ -3,9 +3,9 @@ import clsx from "clsx";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import axios from "axios";
-import { Link } from 'react-router-dom'
-
+import { Link } from 'react-router-dom';
 import { logoutUser } from "../../actions/authActions";
+import { settingsPost } from '../../actions/postActions';
 
 import {
     makeStyles,
@@ -22,6 +22,7 @@ import {
     Grid,
     Paper,
     Button,
+    TextField
 } from "@material-ui/core";
 
 import { Menu, ChevronLeft } from "@material-ui/icons";
@@ -32,7 +33,7 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
-            <Link color="inherit" to="https://material-ui.com/">
+            <Link color="inherit" to="/">
                 Portfolio Management System
             </Link>{" "}
             {new Date().getFullYear()}
@@ -123,6 +124,9 @@ const useStyles = makeStyles((theme) => ({
     logoutBtn: {
         color: "white",
         textDecoration: "none"
+    },
+    fixedWidth: {
+        width: 400
     }
 }));
 
@@ -131,17 +135,36 @@ function Settings(props) {
 
     const [open, setOpen] = React.useState(true);
     const [settings, setSettings] = useState([])
+    const [portUserName, setPortUserName] = useState("")
+    const [portName, setPortName] = useState("");
+    const [portAbout, setPortAbout] = useState("")
+    const [githubLink, setGithubLink] = useState("");
+    const [linkedinLink, setLinkedinLink] = useState("");
+    const [settingsId, setSettingsId] = useState({});
+
+    const onChange = e => {
+        setPortUserName(document.getElementById("portUserName").value);
+        setPortName(document.getElementById("portfolioName").value);
+        setPortAbout(document.getElementById("portfolioAbout").value)
+        setGithubLink(document.getElementById("githubLink").value);
+        setLinkedinLink(document.getElementById("linkedinLink").value);
+    }
 
     // "http://" + window.location.hostname + ":" + window.location.port +
     useEffect(() => {
+        getSettings()
+    }, [])
+
+    const getSettings = () => {
         axios.get("/api/settings")
             .then((response) => {
                 setSettings(response.data);
+                setSettingsId(response.data[0]._id)
             })
             .catch(() => {
                 alert("error recieving settings");
             });
-    }, [])
+    }
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -155,6 +178,23 @@ function Settings(props) {
         e.preventDefault();
         props.logoutUser();
     };
+
+    const onSubmit = e => {
+        e.preventDefault();
+
+        const settingsData = {
+            portUserName,
+            portName,
+            portAbout,
+            githubLink,
+            linkedinLink,
+            settingsId
+        }
+
+        props.settingsPost(settingsData)
+
+        getSettings()
+    }
 
     return (
         <div className={classes.root}>
@@ -227,19 +267,77 @@ function Settings(props) {
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
-                        <Grid item xs={12}>
+                        <Grid item xs={6}>
                             <Paper className={classes.paper}>
                                 <h2 style={{ textAlign: "center" }}>Portfolio Settings</h2>
-                                <Link to="/dashboard/settings/edit"><Button color="primary">Edit Settings</Button></Link>
                                 {settings.map((data) => {
                                     return (
                                         <div key={data._id}>
+                                            <p><strong>Username:</strong> {data.portUserName}</p>
                                             <p><strong>Portfolio Name:</strong> {data.portName}</p>
+                                            <p><strong>About Me:</strong> {data.portAbout}</p>
                                             <p><strong>GitHub:</strong> <a target="_blank" rel="noopener noreferrer" href={data.githubLink}>{data.githubLink}</a></p>
                                             <p><strong>LinkedIn:</strong> <a target="_blank" rel="noopener noreferrer" href={data.linkedinLink}>{data.linkedinLink}</a></p>
                                         </div>
                                     )
                                 })}
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Paper className={classes.paper}>
+                                <h2 style={{ textAlign: "center" }}>Edit the Portfolio Settings</h2>
+                                <form className={classes.form && classes.fixedWidth} style={{ marginLeft: "auto", marginRight: "auto" }} noValidate onSubmit={onSubmit}>
+                                    <TextField
+                                        className={classes.fixedWidth}
+                                        id="portUserName"
+                                        label="Your Name"
+                                        type="text"
+                                        onChange={onChange}
+                                    />
+                                    <br />
+                                    <TextField
+                                        className={classes.fixedWidth}
+                                        id="portfolioName"
+                                        label="Portfolio Name"
+                                        type="text"
+                                        onChange={onChange}
+                                    />
+                                    <br />
+                                    <TextField
+                                        className={classes.fixedWidth}
+                                        id="portfolioAbout"
+                                        label="About Me"
+                                        type="text"
+                                        onChange={onChange}
+                                    />
+                                    <br />
+                                    <TextField
+                                        className={classes.fixedWidth}
+                                        id="githubLink"
+                                        label="GitHub Profile"
+                                        type="text"
+                                        onChange={onChange}
+                                    />
+                                    <br />
+                                    <TextField
+                                        className={classes.fixedWidth}
+                                        id="linkedinLink"
+                                        label="LinkedIn Profile"
+                                        type="text"
+                                        onChange={onChange}
+                                    />
+                                    <br />
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.submit}
+                                        style={{ marginTop: 15, width: 400 }}
+                                    >
+                                        Save Settings
+                                    </Button>
+                                </form>
                             </Paper>
                         </Grid>
                     </Grid>
@@ -261,4 +359,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(Settings);
+export default connect(mapStateToProps, { logoutUser, settingsPost })(Settings);

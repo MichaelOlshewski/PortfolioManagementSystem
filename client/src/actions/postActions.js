@@ -16,6 +16,6 @@ export const deleteProject = (projectId) => dispatch => {
 }
 
 export const editProject = (projectData) => dispatch => {
-    axios.put("/api/portdata/edit/" + projectData.projectId, projectData)
+    axios.put("/api/portdata/edit/" + projectData.id, projectData)
         .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }))
 }

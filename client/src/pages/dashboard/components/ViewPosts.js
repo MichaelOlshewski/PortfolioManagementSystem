@@ -12,8 +12,8 @@ import axios from 'axios';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deleteProject } from '../../../actions/postActions';
-import { editProject } from '../../../actions/postActions';
 import { logoutUser } from '../../../actions/authActions'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ViewPosts(props) {
+
+  let history = useHistory()
 
   const [portData, setPortData] = useState([]);
 
@@ -51,10 +53,8 @@ function ViewPosts(props) {
   }
 
   const editPost = (e) => {
-    e.preventDefault();
-    const projectId = e.target.parentNode.id
-    console.log(projectId)
-    editProject(projectId)
+    const projectId = e.target.parentNode.id;
+    history.push("/dashboard/project/edit/" + projectId)
   }
 
   const classes = useStyles();
