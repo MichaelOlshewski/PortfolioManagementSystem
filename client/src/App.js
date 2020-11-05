@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
@@ -41,7 +41,7 @@ if (localStorage.jwtToken) {
 function App() {
     return (
         <Provider store={store}>
-            <Router history={useHistory}>
+            <Router>
                 <div className="App">
                     <Route exact path="/" component={Portfolio} />
                     <Route exact path="/register" component={Register} />
