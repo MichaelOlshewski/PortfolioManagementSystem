@@ -48,6 +48,10 @@
     "recharts": "^1.8.5",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "sass-toolkit": "^2.10.2",
     "validator": "^13.1.17"
+  },
+  "devDependencies": {
+    "node-sass": "^5.0.0"
   }
 }
