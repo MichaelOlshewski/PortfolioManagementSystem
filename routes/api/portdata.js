@@ -13,6 +13,16 @@ router.get("/", (req, res) => {
     })
 })
 
+router.get("/:id", (req, res) => {
+    PortData.findById(req.params.id, (err, data) => {
+        if (err) {
+            res.send("something went wrong")
+        } else {
+            res.json(data)
+        }
+    })
+})
+
 router.post("/new", (req, res) => {
     const newPortData = new PortData({
         title: req.body.title,
@@ -26,7 +36,7 @@ router.post("/new", (req, res) => {
 })
 
 router.put("/edit/:id", (req, res) => {
-    PortData.findByIdAndUpdate({ _id: req.params.id},
+    PortData.findByIdAndUpdate({ _id: req.params.id },
         {
             title: req.body.title,
             image: req.body.image,

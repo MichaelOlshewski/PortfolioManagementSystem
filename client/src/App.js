@@ -13,8 +13,6 @@ import Register from "./components/auth/Register";
 import AddProject from "./pages/dashboard/addProject";
 import EditProject from './pages/dashboard/editProject'
 import Settings from "./pages/dashboard/settings";
-import EditSettings from './pages/dashboard/editSettings';
-import { useHistory } from 'react-router'
 
 
 // Check localStorage for token to keep user logged in
@@ -59,12 +57,7 @@ function App() {
                         />
                         <PrivateRoute
                             exact
-                            path="/dashboard/settings/edit"
-                            component={EditSettings}
-                        />
-                        <PrivateRoute
-                            exact
-                            path="/dashboard/project/edit/"
+                            path="/dashboard/project/edit/:id"
                             component={EditProject}
                         />
                         <PrivateRoute path="/dashboard" component={Dashboard} />

@@ -12,7 +12,9 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
     const settings = new Settings({
+        portUserName: req.body.portUserName,
         portName: req.body.portName,
+        portAbout: req.body.portfolioAbout,
         githubLink: req.body.githubLink,
         linkedinLink: req.body.linkedinLink,
         isSetup: true
@@ -21,9 +23,11 @@ router.post("/", (req, res) => {
 })
 
 router.put("/edit/:id", (req, res) => {
-    Settings.findByIdAndUpdate({ _id: req.params.id}, 
+    Settings.findByIdAndUpdate({ _id: req.params.id },
         {
+            portUserName: req.body.portUserName,
             portName: req.body.portName,
+            portAbout: req.body.portAbout,
             githubLink: req.body.githubLink,
             linkedinLink: req.body.linkedinLink,
             isSetup: true,

@@ -34,7 +34,7 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
-            <Link color="inherit" href="https://material-ui.com/">
+            <Link color="inherit" href="/">
                 Portfolio Management System
             </Link>{" "}
             {new Date().getFullYear()}
@@ -251,10 +251,10 @@ function AddProject(props) {
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
                         {/* Recent Posts */}
-                        <Grid item xs={12}>
+                        <Grid item xs={6} style={{ marginLeft: "auto", marginRight: "auto" }}>
                             <Paper className={classes.paper}>
                                 <h2 style={{ textAlign: "center" }}>Add a New Project</h2>
-                                <form className={classes.form} noValidate onSubmit={onSubmit}>
+                                <form className={classes.form} noValidate onSubmit={onSubmit} style={{ marginLeft: "auto", marginRight: "auto" }}>
                                     <TextField
                                         className={classes.fixedWidth}
                                         style={{ marginTop: 5 }}

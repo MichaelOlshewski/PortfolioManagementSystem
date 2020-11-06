@@ -1,10 +1,20 @@
 const mongoose = require('mongoose')
 
 const SettingsSchema = new mongoose.Schema({
+    portUserName: {
+        type: String,
+        default: "",
+        require: true
+    },
     portName: {
         type: String,
         default: "",
         require: true
+    },
+    portAbout: {
+        type: String,
+        default: "",
+        require: true,
     },
     githubLink: {
         type: String,
