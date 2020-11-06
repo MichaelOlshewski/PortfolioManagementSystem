@@ -159,8 +159,6 @@ function AddProject(props) {
         setImageName(e.target.files[0].name);
     }
 
-    console.log(image, imageName)
-
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -204,7 +202,7 @@ function AddProject(props) {
             if (err.response.status === 500) {
                 console.log("There was an error with the server")
             } else {
-                console.log(err.response.data.msg)
+                alert(err.response.data.msg)
             }
         }
 
