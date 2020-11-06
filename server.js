@@ -3,10 +3,11 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 const passport = require('passport');
-
+const fileUpload = require('express-fileupload')
 const users = require('./routes/api/users');
 const portdata = require('./routes/api/portdata');
 const settings = require('./routes/api/settings')
+const imageUpload = require('./routes/api/imageUpload')
 
 require("dotenv").config();
 
@@ -19,6 +20,7 @@ const PORT = process.env.PORT || 3001;
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cors())
+app.use(fileUpload())
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static('client/build'));
@@ -36,22 +38,11 @@ require('./config/passport')(passport);
 app.use("/api/users", users)
 app.use("/api/portdata", portdata)
 app.use("/api/settings", settings)
+app.use("/api/upload", imageUpload)
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"))
 })
-
-// app.get('/login', (req, res) => {
-//     res.sendFile(path.join(__dirname, "/index.html"))
-// })
-
-// app.get('/register', (req, res) => {
-//     res.sendFile(path.join(__dirname, "/index.html"))
-// })
-
-// app.get('/dashboard', (req, res) => {
-//     res.sendFile(path.join(__dirname, "/index.html"))
-// })
 
 mongoose.connect(db || process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log("MongoDB sucessfully connected")).catch(err => console.log(err))
 

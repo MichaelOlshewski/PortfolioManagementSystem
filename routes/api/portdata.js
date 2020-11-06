@@ -26,7 +26,7 @@ router.get("/:id", (req, res) => {
 router.post("/new", (req, res) => {
     const newPortData = new PortData({
         title: req.body.title,
-        image: req.body.image,
+        image: req.body.imageName,
         altTag: req.body.altTag,
         description: req.body.description,
         deployedLink: req.body.deployedLink,
@@ -39,7 +39,7 @@ router.put("/edit/:id", (req, res) => {
     PortData.findByIdAndUpdate({ _id: req.params.id },
         {
             title: req.body.title,
-            image: req.body.image,
+            image: req.body.imageName,
             altTag: req.body.altTag,
             description: req.body.description,
             deployedLink: req.body.deployedLink,

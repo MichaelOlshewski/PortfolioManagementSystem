@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { useHistory } from 'react-router-dom'
 import { logoutUser } from "../../actions/authActions";
 import { editProject } from '../../actions/postActions';
+import './styles/fileUpload.css';
 
 import {
     makeStyles,
@@ -133,7 +134,7 @@ function EditProject(props) {
 
     const [open, setOpen] = React.useState(true);
     const [title, setProjectTitle] = useState("");
-    const [image, setImageLink] = useState("");
+    const [image, setImage] = useState("");
     const [altTag, setAltTag] = useState("");
     const [description, setProjectDesc] = useState("");
     const [deployedLink, setDeployedLink] = useState("");
@@ -326,16 +327,14 @@ function EditProject(props) {
                                         onChange={onChange}
                                     />
                                     <br />
+                                    <br />
                                     {/* File Upload Stuff will go here */}
-                                    <input
-                                        accept="image/*"
-                                        className={classes.input}
-                                        id="contained-button-file"
-                                        multiple
-                                        type="file"
-                                        color="primary"
-                                        style={{ marginTop: 5 }}
-                                    />
+                                    <div className="custom-file">
+                                        <label className="custom-file-upload">
+                                            <input type="file" accept=".png,.jpg,.jpeg" className={classes.input} id="customFile" />
+                                            Upload File
+                                        </label>
+                                    </div>
                                     <br />
                                     <Button
                                         type="submit"
