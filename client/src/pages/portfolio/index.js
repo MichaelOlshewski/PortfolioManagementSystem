@@ -9,6 +9,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Button } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -101,6 +103,8 @@ function FullWidthGrid(props, settingData) {
                         </Card>
                     </Grid>
 
+
+
                     {portData.map((project) => {
                         return (
                             <Grid key={project._id} item xs={12} sm={6}>
@@ -110,28 +114,25 @@ function FullWidthGrid(props, settingData) {
                                         target="_blank"
                                         href={project.deployedLink}
                                     >
-                                        {project.title}
+                                       {project.title} 
+                                       <Divider variant="middle" style={{marginTop: 10}} />
                                     </a>
                                     <p>{project.image}</p>
                                     <p>{project.description}</p>
-                                    <Button variant="outlined" color="primary" style={{marginRight: 50}} >
-                                    <a
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        href={project.deployedLink}
-                                    >
+                                    <a target="_blank" rel="noopener noreferrer" href={project.deployedLink}>
+                                    <Button variant="outlined" color="primary" style={{marginRight: 55}} >
                                         View Deployed Application
-                                    </a>
                                     </Button>
-                                    <Button variant="outlined" color="primary" >
+                                    </a>
                                     <a
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         href={project.repoLink}
                                     >
+                                    <Button variant="outlined" color="primary" >
                                         View Repository for App
-                                    </a>
                                     </Button>
+                                    </a>
                                 </Paper>
                             </Grid>
                         );
