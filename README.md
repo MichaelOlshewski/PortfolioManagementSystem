@@ -4,7 +4,7 @@
 MIT
 
 ## __Description__
-This group project was created to build our first full-stack app.  This web-app is for users who want to create a running challenge for themselves and keep track of the progress.  Deployed Heroku can be found at https://buildandflex.herokuapp.com/
+This was the final group project to build a full-stack application. This is a web app that the user can set up the public page with their own UI design, or use the basic one given to house their work, experience and showcase their skills. The portfolio owner can access all portfolio submissions through the dashboard, they can add, edit or delete projects, edit the site settings such as name, github links and linkedin profile. User can also add images to the submissions, and delete same images. You can view the deployed application on Heroku at https://portmansys.herokuapp.com/
 
 ## __Collaborators__
 * [Michael Olshewski](https://github.com/MichaelOlshewski)

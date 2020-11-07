@@ -12,90 +12,109 @@ import { Button } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-    marginLeft: 25,
-    marginRight: 25,
-  },
-  card: {
-    marginLeft: 25,
-    marginRight: 25,
-    textAlign: "center",
-  },
-  button: {
-    width: 100,
-  },
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: "center",
+        color: theme.palette.text.secondary,
+        marginLeft: 25,
+        marginRight: 25,
+    },
+    card: {
+        marginLeft: 25,
+        marginRight: 25,
+        textAlign: "center",
+    },
+    button: {
+        width: 100,
+    },
 }));
 
 function FullWidthGrid(props, settingData) {
-  const [portData, setPortData] = useState([]);
-  const [settings, setSettings] = useState([]);
+    const [portData, setPortData] = useState([]);
+    const [settings, setSettings] = useState([]);
 
-  useEffect(() => {
-    getPortData();
-    getPortSettings();
-  }, []);
+    useEffect(() => {
+        getPortData();
+        getPortSettings();
+    }, []);
 
-  const getPortData = () => {
-    axios
-      .get("/api/portdata")
-      .then((response) => {
-        setPortData(response.data);
-        console.log(response.data);
-      })
-      .catch(() => {
-        alert("error recieving data");
-      });
-  };
+    const getPortData = () => {
+        axios
+            .get("/api/portdata")
+            .then((response) => {
+                setPortData(response.data);
+                console.log(response.data);
+            })
+            .catch(() => {
+                alert("error recieving data");
+            });
+    };
 
-  const getPortSettings = () => {
-    axios
-      .get("/api/settings")
-      .then((response) => {
-        setSettings(response.data[0]);
-        console.log(response.data);
-      })
-      .catch(() => {
-        alert("error recieving settings");
-      });
-  };
+    const getPortSettings = () => {
+        axios
+            .get("/api/settings")
+            .then((response) => {
+                setSettings(response.data[0]);
+                console.log(response.data);
+            })
+            .catch(() => {
+                alert("error recieving settings");
+            });
+    };
 
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <React.Fragment>
-      <Navbar
-        name={settings.portName}
-        linkedinLink={settings.linkedinLink}
-        githubLink={settings.githubLink}
-      />
-      <div className={classes.root} style={{ paddingTop: 10 }}>
-        <Grid container spacing={3}>
-          <Grid item md={12}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.media}
-                image="/static/images/cards/contemplative-reptile.jpg"
-                title="Contemplative Reptile"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {settings.portUserName}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {settings.portAbout}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+    return (
+        <React.Fragment>
+            <Navbar
+                name={settings.portName}
+                linkedinLink={settings.linkedinLink}
+                githubLink={settings.githubLink}
+            />
+            <div className={classes.root} style={{ paddingTop: 10 }}>
+                <Grid container spacing={3}>
+                    <Grid item md={12}>
+                        <Card className={classes.card}>
+                            <CardMedia
+                                className={classes.media}
+                                image="/static/images/cards/contemplative-reptile.jpg"
+                                title="Contemplative Reptile"
+                            />
+                            <CardContent>
+                                <Typography
+                                    gutterBottom
+                                    variant="h5"
+                                    component="h2"
+                                >
+                                    {settings.portUserName}
+                                </Typography>
+                                <Typography
+                                    variant="body2"
+                                    color="textSecondary"
+                                    component="p"
+                                >
+                                    {settings.portAbout}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
 
-<<<<<<< HEAD
                     {portData.map((project) => {
+                        let imageElement;
+                        if (project.image === "Choose Image") {
+                            imageElement = <p></p>;
+                        } else {
+                            imageElement = (
+                                <img
+                                    alt={project.altTag}
+                                    style={{ maxWidth: 400, marginTop: 10 }}
+                                    src={require(`../../../public/uploads/${project.image}`)}
+                                />
+                            );
+                        }
                         return (
                             <Grid key={project._id} item xs={12} sm={6}>
                                 <Paper className={classes.paper}>
@@ -105,23 +124,37 @@ function FullWidthGrid(props, settingData) {
                                         href={project.deployedLink}
                                     >
                                         {project.title}
-                                        <Divider variant="middle" style={{ marginTop: 10 }} />
+                                        <Divider
+                                            variant="middle"
+                                            style={{ marginTop: 10 }}
+                                        />
                                     </a>
-                                    <p>{project.image}</p>
+                                    {imageElement}
                                     <p>{project.description}</p>
-                                    <a target="_blank" rel="noopener noreferrer" href={project.deployedLink}>
-                                        <Button variant="outlined" color="primary" style={{ marginRight: 55 }} >
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        href={project.deployedLink}
+                                    >
+                                        <Button
+                                            variant="outlined"
+                                            color="primary"
+                                            style={{ marginRight: 55 }}
+                                        >
                                             View Deployed Application
-                                    </Button>
+                                        </Button>
                                     </a>
                                     <a
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         href={project.repoLink}
                                     >
-                                        <Button variant="outlined" color="primary" >
+                                        <Button
+                                            variant="outlined"
+                                            color="primary"
+                                        >
                                             View Repository for App
-                                    </Button>
+                                        </Button>
                                     </a>
                                 </Paper>
                             </Grid>
@@ -131,58 +164,6 @@ function FullWidthGrid(props, settingData) {
             </div>
         </React.Fragment>
     );
-=======
-          {portData.map((project) => {
-            let imageElement;
-            if (project.image === "Choose Image") {
-              imageElement = <p></p>;
-            } else {
-                imageElement = <img alt={project.altTag} style={{maxWidth: 400, marginTop: 10}} src={ require(`../../../public/uploads/${project.image}`)}/>
-            }
-            return (
-              <Grid key={project._id} item xs={12} sm={6}>
-                <Paper className={classes.paper}>
-                  <a
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    href={project.deployedLink}
-                  >
-                    {project.title}
-                    <Divider variant="middle" style={{ marginTop: 10 }} />
-                  </a>
-                  {imageElement}
-                  <p>{project.description}</p>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={project.deployedLink}
-                  >
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      style={{ marginRight: 55 }}
-                    >
-                      View Deployed Application
-                    </Button>
-                  </a>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={project.repoLink}
-                  >
-                    <Button variant="outlined" color="primary">
-                      View Repository for App
-                    </Button>
-                  </a>
-                </Paper>
-              </Grid>
-            );
-          })}
-        </Grid>
-      </div>
-    </React.Fragment>
-  );
->>>>>>> 62e09f45aad521247eba836cf32238279c14850b
 }
 
 export default FullWidthGrid;

@@ -150,7 +150,6 @@ function Settings(props) {
         setLinkedinLink(document.getElementById("linkedinLink").value);
     }
 
-    // "http://" + window.location.hostname + ":" + window.location.port +
     useEffect(() => {
         getSettings()
     }, [])

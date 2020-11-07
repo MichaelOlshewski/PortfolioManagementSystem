@@ -142,7 +142,7 @@ function AddProject(props) {
     const [description, setProjectDesc] = useState("");
     const [deployedLink, setDeployedLink] = useState("");
     const [repoLink, setRepoLink] = useState("");
-    const [uploadedFile, setUploadedFile] = useState({});
+    const [uploadedFile, setUploadedFile] = useState({}); // eslint-disable-line
 
     let history = useHistory();
 

@@ -134,7 +134,6 @@ function EditProject(props) {
 
     const [open, setOpen] = React.useState(true);
     const [title, setProjectTitle] = useState("");
-    const [image, setImage] = useState("");
     const [altTag, setAltTag] = useState("");
     const [description, setProjectDesc] = useState("");
     const [deployedLink, setDeployedLink] = useState("");
@@ -146,7 +145,6 @@ function EditProject(props) {
     const onChange = e => {
         setProjectTitle(document.getElementById("projectTitle").value);
         setProjectDesc(document.getElementById("projectDesc").value);
-        //setImageLink(document.getElementById("imageLink").value);
         setAltTag(document.getElementById("altTag").value);
         setDeployedLink(document.getElementById("deployedLink").value);
         setRepoLink(document.getElementById("repoLink").value);
@@ -173,7 +171,6 @@ function EditProject(props) {
         const projectData = {
             id,
             title,
-            image,
             altTag,
             description,
             deployedLink,
