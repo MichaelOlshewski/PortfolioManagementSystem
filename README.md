@@ -14,7 +14,7 @@ This was the final group project to build a full-stack application. This is a we
 
 
 ### __Installation__
-Installation:  You will need to have Node installed and then run ```npm install``` to be able to run.  You musth ave a MongoDB server started in order to run the app.
+Installation:  You will need to have Node installed and then run ```npm install``` to be able to run.  You must have a MongoDB server started in order to run the app.
 
 ### __Images__
 Dashboard:
