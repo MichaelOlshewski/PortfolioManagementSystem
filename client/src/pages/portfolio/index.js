@@ -114,14 +114,14 @@ function FullWidthGrid(props, settingData) {
                                         target="_blank"
                                         href={project.deployedLink}
                                     >
-                                       {project.title} 
-                                       <Divider variant="middle" style={{marginTop: 10}} />
+                                        {project.title}
+                                        <Divider variant="middle" style={{ marginTop: 10 }} />
                                     </a>
                                     <p>{project.image}</p>
                                     <p>{project.description}</p>
                                     <a target="_blank" rel="noopener noreferrer" href={project.deployedLink}>
-                                    <Button variant="outlined" color="primary" style={{marginRight: 55}} >
-                                        View Deployed Application
+                                        <Button variant="outlined" color="primary" style={{ marginRight: 55 }} >
+                                            View Deployed Application
                                     </Button>
                                     </a>
                                     <a
@@ -129,8 +129,8 @@ function FullWidthGrid(props, settingData) {
                                         rel="noopener noreferrer"
                                         href={project.repoLink}
                                     >
-                                    <Button variant="outlined" color="primary" >
-                                        View Repository for App
+                                        <Button variant="outlined" color="primary" >
+                                            View Repository for App
                                     </Button>
                                     </a>
                                 </Paper>
