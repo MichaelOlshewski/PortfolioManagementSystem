@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom"
 
 import { logoutUser } from "../../actions/authActions";
-import { createProject } from '../../actions/postActions'
+import { createProject } from "../../actions/postActions"
+
+import './styles/fileUpload.css';
 
 import {
     makeStyles,
@@ -29,6 +31,8 @@ import {
 import { Menu, ChevronLeft } from "@material-ui/icons";
 
 import { MainListItems } from "./components/listItems";
+
+import axios from 'axios'
 
 function Copyright() {
     return (
@@ -132,21 +136,27 @@ function AddProject(props) {
 
     const [open, setOpen] = React.useState(true);
     const [title, setProjectTitle] = useState("");
-    const [image, setImageLink] = useState("");
+    const [image, setImage] = useState("");
+    const [imageName, setImageName] = useState("Choose Image")
     const [altTag, setAltTag] = useState("");
     const [description, setProjectDesc] = useState("");
     const [deployedLink, setDeployedLink] = useState("");
-    const [repoLink, setRepoLink] = useState("")
+    const [repoLink, setRepoLink] = useState("");
+    const [uploadedFile, setUploadedFile] = useState({});
 
     let history = useHistory();
 
-    const onChange = e => {
+    const onChange = () => {
         setProjectTitle(document.getElementById("projectTitle").value);
         setProjectDesc(document.getElementById("projectDesc").value);
-        //setImageLink(document.getElementById("imageLink").value);
         setAltTag(document.getElementById("altTag").value);
         setDeployedLink(document.getElementById("deployedLink").value);
         setRepoLink(document.getElementById("repoLink").value);
+    }
+
+    const onFileChange = e => {
+        setImage(e.target.files[0]);
+        setImageName(e.target.files[0].name);
     }
 
     const handleDrawerOpen = () => {
@@ -162,16 +172,38 @@ function AddProject(props) {
         props.logoutUser();
     };
 
-    const onSubmit = e => {
+    const onSubmit = async e => {
         e.preventDefault();
 
         const projectData = {
             title,
             description,
-            image,
+            imageName,
             altTag,
             deployedLink,
             repoLink
+        }
+
+        const formData = new FormData();
+
+        formData.append('file', image)
+
+        try {
+            const res = await axios.post("/api/upload", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+
+            const { fileName, filePath } = res.data;
+
+            setUploadedFile({ fileName, filePath })
+        } catch (err) {
+            if (err.response.status === 500) {
+                console.log("There was an error with the server")
+            } else {
+                alert(err.response.data.msg)
+            }
         }
 
         props.createProject(projectData)
@@ -300,16 +332,14 @@ function AddProject(props) {
                                         onChange={onChange}
                                     />
                                     <br />
+                                    <br />
                                     {/* File Upload Stuff will go here */}
-                                    <input
-                                        accept="image/*"
-                                        className={classes.input}
-                                        id="contained-button-file"
-                                        multiple
-                                        type="file"
-                                        color="primary"
-                                        style={{ marginTop: 5 }}
-                                    />
+                                    <div className="custom-file">
+                                        <label className="custom-file-upload">
+                                            <input type="file" accept=".png,.jpg,.jpeg" className={classes.input} id="customFile" onChange={onFileChange} />
+                                            {imageName}
+                                        </label>
+                                    </div>
                                     <br />
                                     <Button
                                         type="submit"
@@ -317,7 +347,7 @@ function AddProject(props) {
                                         variant="contained"
                                         color="primary"
                                         className={classes.submit}
-                                        style={{ marginTop: 15, width: 350 }}
+                                        style={{ marginTop: 5, width: 350 }}
                                     >
                                         Add Project
                                     </Button>
