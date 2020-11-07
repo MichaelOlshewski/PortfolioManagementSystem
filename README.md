@@ -18,16 +18,16 @@ Installation:  You will need to have Node installed and then run ```npm install`
 
 ### __Images__
 Dashboard:
-![image of dashboard](/Dashboard.png)
+![image of dashboard](assets/images/Dashboard.png)
 
 Add Project:
-![image of add_project_page](/AddPortject.png)
+![image of add_project_page](assets/images/AddProject.png)
 
 Portfolio Settings:
-![image of add_portfolio_settings_page](/PortfolioSettings.png)
+![image of add_portfolio_settings_page](assets/images/PortfolioSettings.png)
 
 Portfolio:
-![image of add_Portfolio](/Portfolio.png)
+![image of add_Portfolio](assets/images/Portfolio.png)
 
 ### __Contributing__
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
