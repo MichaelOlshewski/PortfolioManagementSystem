@@ -41,7 +41,7 @@ app.use("/api/settings", settings)
 app.use("/api/upload", imageUpload)
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "/index.html"))
+    res.sendFile(path.join(__dirname, "client/build/index.html")) // eslint-disable-line
 })
 
 mongoose.connect(db || process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log("MongoDB sucessfully connected")).catch(err => console.log(err))

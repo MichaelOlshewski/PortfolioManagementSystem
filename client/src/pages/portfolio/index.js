@@ -10,7 +10,6 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
-import { black } from "material-ui/styles/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,12 +99,12 @@ function FullWidthGrid(props, settingData) {
             if (project.image === "Choose Image") {
               imageElement = <p></p>;
             } else {
-                imageElement = <img alt={project.altTag} style={{maxWidth: 400, marginTop: 10}} src={ require(`../../../public/uploads/${project.image}`)}/>
+              imageElement = <img alt={project.altTag} style={{ maxWidth: 400, marginTop: 10 }} src={require(`../../../public/uploads/${project.image}`)} />
             }
             return (
               <Grid key={project._id} item xs={12} sm={6}>
                 <Paper className={classes.paper}>
-                  <a style={{fontWeight: 'bold', color: '#1E56A0', fontSize: 20}}
+                  <a style={{ fontWeight: 'bold', color: '#1E56A0', fontSize: 20 }}
                     rel="noopener noreferrer"
                     target="_blank"
                     href={project.deployedLink}
@@ -123,7 +122,7 @@ function FullWidthGrid(props, settingData) {
                     <Button
                       variant="outlined"
                       color="primary"
-                      style={{ marginRight: 55, backgroundColor: '#F6F6F6'}}
+                      style={{ marginRight: 55, backgroundColor: '#F6F6F6' }}
                     >
                       View Deployed Application
                     </Button>
@@ -133,7 +132,7 @@ function FullWidthGrid(props, settingData) {
                     rel="noopener noreferrer"
                     href={project.repoLink}
                   >
-                    <Button variant="outlined" color="primary" style={{backgroundColor: '#F6F6F6'}}>
+                    <Button variant="outlined" color="primary" style={{ backgroundColor: '#F6F6F6' }}>
                       View Repository for App
                     </Button>
                   </a>
